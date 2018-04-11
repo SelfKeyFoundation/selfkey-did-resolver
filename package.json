@@ -1,0 +1,23 @@
+{
+  "name": "selfkey-did-resolver",
+  "version": "1.1.0",
+  "description": "DID resolver for the Selfkey DID method",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SelfKeyFoundation/did-resolver.git"
+  },
+  "keywords": [
+    "did",
+    "identity",
+    "selfkey"
+  ],
+  "author": "Carlos Bruguera <carlos@selfkey.org>",
+  "bugs": {
+    "url": "https://github.com/SelfKeyFoundation/did-resolver/issues"
+  },
+  "homepage": "https://github.com/SelfKeyFoundation/did-resolver#readme"
+}
