@@ -1,0 +1,31 @@
+{
+  "name": "selfkey-did-resolver",
+  "version": "0.1.0",
+  "description": "DID resolver for the Selfkey DID method",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SelfKeyFoundation/did-resolver.git"
+  },
+  "keywords": [
+    "did",
+    "decentralized",
+    "identity",
+    "selfkey"
+  ],
+  "author": "Carlos Bruguera <carlos@selfkey.org>",
+  "bugs": {
+    "url": "https://github.com/SelfKeyFoundation/did-resolver/issues"
+  },
+  "homepage": "https://github.com/SelfKeyFoundation/did-resolver#readme",
+  "dependencies": {
+    "did-resolver": "0.0.4",
+    "fs": "0.0.1-security",
+    "keccak": "^1.4.0",
+    "web3": "^0.20.2",
+    "web3-provider-engine": "^8.6.1"
+  }
+}
