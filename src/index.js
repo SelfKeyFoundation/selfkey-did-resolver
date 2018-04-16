@@ -1,32 +1,70 @@
 const didResolver = require('did-resolver')
 const contractConnector = require('./contractConnector')
+const Web3 = require('web3')
+const web3 = new Web3(
+  new Web3.providers.HttpProvider(
+    'https://ropsten.infura.io/'
+  )
+)
 //const keccak256 = require('keccak')
+
+/*const MANAGEMENT_KEY = 1
+const ACTION_KEY = 2
+const CLAIM_SIGNER_KEY = 3
+const ENCRYPTION_KEY = 4*/
 
 module.exports = {
   resolveDID: function (did) {
-    buildDidDocument = function (did, address) {
-      const didVersion = '0.1'
-      const didContract = contractConnector(address)
+    buildDidDocument = async function (did, address) {
+      const contract = contractConnector(address)
 
-      // get Keys
-      // get service endpoints
+      let publicAddress = ''
+      let owner = await contract.owner.call()
+
+      if (owner == '0x')
+        publicAddress = address
+      else
+        publicAddress = owner
+
+      // get services
+      const services = []
+      const servicesCount = await contract.servicesCount.call()
+      let serviceType = ''
+      let endpoint = ''
+      let service = {}
+
+      for (var i = 0; i < servicesCount; i++) {
+        serviceType = await contract.services.call(i)
+        endpoint = await contract.getServiceByType(serviceType)
+        service = {
+          type: web3.toAscii(serviceType).replace(/\0/g, ''),
+          serviceEndpoint: endpoint
+        }
+        services.push(service)
+      }
 
       const doc = {
         '@context': 'https://w3id.org/did/v1',
         id: did,
-        version: didVersion
-        /*publicKey: [{
+        //version: didVersion
+        publicKey: [{
           id: `${did}#keys-1`,
-          type: 'Secp256k1VerificationKey2018',
+          type: ['KoblitzVerificationKey2017', 'ERC725ManagementKey'],
           owner: did,
-          ethereumAddress: address
-        }] */
+          publicAddress: publicAddress
+        }],
+      }
+
+      if (services.length > 0) {
+        doc.service = services
       }
 
       return doc
     }
 
-    if (!did.match(/^did:key:0x[0-9a-fA-F]{40}$/)) return new Error(`Not a valid selfkey DID: ${did}`)
+    if (!did.match(/^did:key:0x[0-9a-fA-F]{40}$/))
+      return { error: 'Not a valid selfkey DID' }
+
     const address = did.match(/0x[0-9a-fA-F]{40}/)[0]
 
     return buildDidDocument(did, address)

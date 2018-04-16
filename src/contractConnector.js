@@ -2,7 +2,7 @@ const fs = require('fs')
 const Web3 = require('web3')
 const web3 = new Web3(
   new Web3.providers.HttpProvider(
-    'https://ropsten.infura.io/SYGRk61NUc3yN4NNRs60'
+    'https://ropsten.infura.io/'
   )
 )
 
@@ -16,6 +16,7 @@ const identityABI = identitySpecs.abi
 // function for retrieving contract object from the network
 connector = function (address) {
   return web3.eth.contract(identityABI).at(address)
+  //return new web3.eth.contract(identityABI, address)
 }
 
 module.exports = connector
