@@ -1,4 +1,5 @@
 const fs = require('fs')
+const path = require('path')
 const Web3 = require('web3')
 const web3 = new Web3(
   new Web3.providers.HttpProvider(
@@ -9,9 +10,10 @@ const web3 = new Web3(
 // load contract ABI
 const identityABIFile = 'Identity.json'
 const identitySpecs = JSON.parse(
-  fs.readFileSync('./abi/' + identityABIFile)
+  fs.readFileSync(path.join(__dirname, './abi/' + identityABIFile))
 )
 const identityABI = identitySpecs.abi
+
 
 // function for retrieving contract object from the network
 connector = function (address) {
