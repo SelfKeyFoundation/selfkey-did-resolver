@@ -12,26 +12,48 @@ const web3 = new Web3(
 const ACTION_KEY = 2
 const CLAIM_SIGNER_KEY = 3
 const ENCRYPTION_KEY = 4*/
+const keyTypes = {
+  1: "ERC725ManagementKey",
+  2: "ERC725ActionKey",
+  3: "ERC725ClaimSignerKey",
+  4: "ERC725EncryptionKey"
+}
 
 module.exports = {
   resolveDID: function (did) {
     buildDidDocument = async function (did, address) {
       const contract = contractConnector(address)
-
       let publicAddress = ''
       let owner = await contract.owner.call()
 
-      if (owner == '0x')
+      /*if (owner == '0x')
         publicAddress = address
       else
-        publicAddress = owner
+        publicAddress = owner*/
 
-      // get services
+      // get identity keys
+      const keys = []
+      //console.log(JSON.stringify(contract.abi, undefined, 2))
+      const keysCount = await contract.keysCount.call()
+      let gotKey, hash, key
+
+      for (var i = 0; i < keysCount; i++) {
+        hash = await contract.keyHashes.call(i)
+        gotKey = await contract.getKeyByHash(hash)
+
+        key = {
+          id: `${did}#keys-` + (i + 1),
+          type: ['KoblitzVerificationKey2017', keyTypes[gotKey[1]]],
+          owner: did,
+          publicAddress: gotKey[0]
+        }
+        keys.push(key)
+      }
+
+      // get identity services
       const services = []
       const servicesCount = await contract.servicesCount.call()
-      let serviceType = ''
-      let endpoint = ''
-      let service = {}
+      let serviceType, endpoint, service
 
       for (var i = 0; i < servicesCount; i++) {
         serviceType = await contract.services.call(i)
@@ -47,12 +69,17 @@ module.exports = {
         '@context': 'https://w3id.org/did/v1',
         id: did,
         //version: didVersion
-        publicKey: [{
+      }
+
+      if (keys.length > 0) {
+        doc.publicKey = keys
+      } else if (owner == '0x') {
+        doc.publicKey = [{
           id: `${did}#keys-1`,
-          type: ['KoblitzVerificationKey2017', 'ERC725ManagementKey'],
+          type: ['KoblitzVerificationKey2017'],
           owner: did,
-          publicAddress: publicAddress
-        }],
+          publicAddress: address
+        }]
       }
 
       if (services.length > 0) {
