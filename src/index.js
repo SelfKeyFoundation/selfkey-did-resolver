@@ -77,14 +77,20 @@ async function buildDocument(did, address) {
 	return doc
 }
 
-// take the did from command line if there is one
-if (process.argv[2]) {const did = process.argv[2]}
-
 // resolve the DID and return the DID document
 async function didResolver(did) {
 	if (!did.match(/^did:key:0x[0-9a-fA-F]{40}$/)) return { error: 'Not a valid SelfKey DID' }
 	const address = did.match(/0x[0-9a-fA-F]{40}/)[0]
 	return buildDocument(did, address)
+}
+
+// take the did from command line if there is one
+if (process.argv[2]) {
+	async function didConsole(did) {
+		const cdid = await didResolver(process.argv[2])
+		console.log(cdid)
+	}
+	didConsole(process.argv[2])
 }
 
 module.exports = didResolver
