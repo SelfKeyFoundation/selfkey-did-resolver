@@ -1,26 +1,36 @@
 {
   "name": "selfkey-did-resolver",
-  "version": "0.1.0",
-  "description": "DID Resolver for the Selfkey DID Method",
-  "main": "./src/index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/SelfKeyFoundation/did-resolver.git"
-  },
+  "version": "1.0.0",
+  "description": "JavaScript DID Resolver for the SelfKey DID Method",
   "keywords": [
     "did",
     "decentralized",
     "identity",
-    "selfkey"
+    "selfkey",
+    "javascript"
   ],
-  "author": "Carlos Bruguera <carlos@selfkey.org>",
-  "bugs": {
-    "url": "https://github.com/SelfKeyFoundation/did-resolver/issues"
+  "author": {
+    "name": "Carlos Bruguera",
+    "email": "carlos@selfkey.org",
+    "url": "https://selfkey.org/"
   },
-  "homepage": "https://github.com/SelfKeyFoundation/did-resolver#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SelfKeyFoundation/selfkey-did-resolver.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SelfKeyFoundation/selfkey-did-resolver/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://www.opensource.org/licenses/MIT"
+    }
+  ],
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "node ./test/test.js"
+  },
   "dependencies": {
     "web3": "^1.0.0-beta.34"
   }
