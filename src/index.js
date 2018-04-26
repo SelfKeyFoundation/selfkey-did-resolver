@@ -87,8 +87,8 @@ async function didResolver(did) {
 // take the did from command line if there is one
 if (process.argv[2]) {
 	async function didConsole(did) {
-		const cdid = await didResolver(process.argv[2])
-		console.log(cdid)
+		const resolved = await didResolver(process.argv[2])
+		console.log(resolved)
 	}
 	didConsole(process.argv[2])
 }
