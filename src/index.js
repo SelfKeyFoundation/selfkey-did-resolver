@@ -63,12 +63,17 @@ async function buildDocument(did, address) {
 		id: did
 	}
 	if (await web3.eth.getCode(address) != "0x") {
-		const contract = await identityContractConnector(address)
-		const owner = await contract.methods.owner().call()
-		const keys = await loopKeys(contract, did)
-		const services = await loopServices(contract)
-		if (keys.length > 0) doc.publicKey = keys
-		if (services.length > 0) doc.service = services
+		try {
+			const contract = await identityContractConnector(address)
+			const owner = await contract.methods.owner().call()
+			const keys = await loopKeys(contract, did)
+			const services = await loopServices(contract)
+
+			if (keys.length > 0) doc.publicKey = keys
+			if (services.length > 0) doc.service = services
+		} catch (err) {
+			return { error: 'Not a valid SelfKey DID' }
+		}
 	} else {
 		doc.publicKey = [
 			{
