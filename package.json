@@ -34,8 +34,8 @@
     "lint:js": "eslint --fix test/**/*.js"
   },
   "dependencies": {
-    "util": "^0.10.3",
-    "web3": "^1.0.0-beta2"
+    "util": "^0.10.4",
+    "web3": "^1.0.0-beta.34"
   },
   "devDependencies": {
     "eslint": "^4.19.1",
