@@ -29,10 +29,26 @@
   ],
   "main": "./src/index.js",
   "scripts": {
-    "test": "node ./test/test.js"
+    "test": "node ./test/test.js",
+    "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
+    "lint:js": "eslint --fix test/**/*.js"
   },
   "dependencies": {
     "util": "^0.10.3",
-    "web3": "^1.0.0-beta.34"
+    "web3": "^1.0.0-beta2"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-prettier": "^2.8.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-mocha": "^5.0.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-prettier": "^2.3.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-standard": "^3.1.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^7.1.0",
+    "prettier": "^1.12.1"
   }
 }
