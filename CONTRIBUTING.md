@@ -52,7 +52,7 @@ It's basically the same process but use the word `hotfix` or `support` instead o
 4. Now go back to GitHub and raise a Pull Request to merge the upstream master from your fork's `master` branch. When that goes through you are done.
 5. In your command-line go back and clean up any outstanding branches and `git pull upstream` your local `master` and `develop` branches to ensure everything on your local machine is up to date with everyone's changes.
 
-Note you will **never** push changes directly to the upstream project, *only to your own fork*. 
+Note you will **never** push changes directly to the upstream project, *only to your own fork*.
 
 **Changes may only be introduced into the upstream project via a properly reviewed pull request.**
 
@@ -80,8 +80,9 @@ Pull requests must be named as follows `[issue type, issue number] high level de
 
 * `Bug Fix` - the change fixes a bug
 * `Feature` - the change adds a new feature (the usual issue type)
-* `Documentation` — The change is a documentation only change
+* `Documentation` - The change is a documentation only change
 * `Optimisation` - The change is an optimisation of the code base without any functional changes
+* `Upgrade` - One or more dependencies have been upgraded to a more recent version
 
 If your change does not fit any of these categories, use `Feature`. Likewise if your change is not tied to an issue number you may use `n/a` instead.
 
